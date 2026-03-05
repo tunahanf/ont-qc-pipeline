@@ -1,0 +1,6 @@
+data/*.fastq
+results/
+logs/
+__pycache__/
+.snakemake/
+CLAUDE.md
