@@ -31,9 +31,9 @@ We have completed the Quality Control (QC) analysis of Oxford Nanopore Technolog
 
 ## Key Observations
 
-- **Read Length:** Distribution is right-skewed (log-normal), consistent with typical ONT output; mean ~7–8 kb, N50 in a biologically reasonable range.
-- **GC Content:** Uniform distribution observed within the expected 40–60% range — no contamination or bias detected.
-- **Quality Scores:** Mean Phred scores cluster around Q10–Q14, representative of ONT raw read quality before polishing.
+- **Read Length:** Distribution is right-skewed (log-normal), consistent with typical ONT output; mean ~7-8 kb, N50 in a biologically reasonable range.
+- **GC Content:** Uniform distribution observed within the expected 40-60% range, no contamination or bias detected.
+- **Quality Scores:** Mean Phred scores cluster around Q10-Q14, representative of ONT raw read quality before polishing.
 
 ---
 
