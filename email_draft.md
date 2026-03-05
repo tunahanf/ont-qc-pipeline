@@ -2,79 +2,59 @@
 
 ---
 
-**Konu / Subject:** ONT Sequencing Data QC Analysis — Pipeline Results
+**Subject:** ONT Sequencing Data QC Analysis — Pipeline Results
 
 ---
 
-Sayın Prof. Kılıç,
-
-Umarım bu e-posta sizi iyi bulur.
-
-Oxford Nanopore Technology (ONT) uzun okuma verisi üzerinde gerçekleştirdiğimiz kalite kontrol (QC) analizini tamamladık. Çalışmanın tüm adımları otomatik ve tekrarlanabilir bir pipeline içinde yapılandırıldı.
-
----
-
-## Ne Yaptık?
-
-1. **Veri Simülasyonu:** Gerçek sequencing verisi olmadığından, biyolojik olarak gerçekçi 1.000 adet ONT okuması simüle ettik. Okuma uzunlukları log-normal dağılımından (1 kb–50 kb arası), GC içerikleri %40–60 aralığından, baz kalite skorları ise ONT'ye özgü Phred Q7–Q20 aralığından örneklendi.
-
-2. **Kalite Kontrol Metrikleri:** Her okuma için üç temel QC metriği hesaplandı:
-   - **Okuma uzunluğu** (Read Length)
-   - **GC içeriği** (%)
-   - **Ortalama kalite skoru** (Mean Phred Quality)
-
-3. **Görselleştirme:** Tüm metrikler için histogram ve yoğunluk eğrisi (KDE) grafikleri oluşturuldu. Bu grafikler `results/plots/` klasöründe bulunmaktadır.
-
-4. **NanoPlot Raporu:** Standart bioinformatik QC aracı NanoPlot ile interaktif bir HTML raporu üretildi (`results/nanoplot/NanoPlot-report.html`). Bu rapor N50 değeri, ortalama kalite dağılımı ve okuma uzunluğu özetlerini içermektedir.
-
----
-
-## Grafiklerin Yorumu
-
-- **Okuma Uzunluğu:** Dağılım log-normal yapıya uygun şekilde sağa çarpık; ortalama ~7–8 kb civarında, N50 değeri biyolojik olarak makul bir aralıkta.
-- **GC İçeriği:** Beklenen %40–60 aralığında uniform bir dağılım gözlemlendi; belirgin bir sapma veya kontaminasyon işareti yok.
-- **Kalite Skorları:** Ortalama Phred skoru Q10–Q14 bandında yoğunlaşıyor; bu, tipik ONT ham veri kalitesiyle tutarlı.
-
----
-
-## Bir Sonraki Adım
-
-QC aşaması tamamlandıktan sonra önerilen adımlar:
-
-1. **Kalite Filtrelemesi:** Düşük kaliteli okumaları elemek için `filtlong` veya `chopper` kullanılabilir (Q < 8 veya uzunluk < 1000 bp).
-2. **Referans Hizalaması (Alignment):** Filtrelenmiş okumalar `minimap2` ile referans genome hizalanabilir.
-3. **Varyant Tespiti:** Alignment sonrası SNP/indel tespiti için `medaka` veya `clair3` kullanılabilir.
-
-Tüm pipeline Docker ile paketlenmiştir; yeniden çalıştırmak için tek komut yeterlidir:
-
-```bash
-docker run --rm -v $(pwd):/workspace ont-qc-pipeline
-```
-
-Herhangi bir sorunuz olursa memnuniyetle yanıtlarım.
-
-Saygılarımla,
-
----
-
-**Dear Prof. Kılıç,**
+Dear Prof. Kılıç,
 
 I hope this message finds you well.
 
 We have completed the Quality Control (QC) analysis of Oxford Nanopore Technology (ONT) long-read sequencing data. The entire workflow has been implemented as an automated, reproducible pipeline.
 
-**Summary of Results:**
-- 1,000 ONT-style reads were simulated with realistic length (lognormal, 1–50 kb), GC content (40–60%), and quality (Phred Q7–Q20) distributions.
-- Per-read metrics (read length, GC content, mean quality) were computed and saved as a CSV file.
-- Histogram/KDE plots and an interactive NanoPlot HTML report are available in the `results/` directory.
+---
 
-**Key Observations:**
-- Read length distribution is right-skewed (log-normal), consistent with typical ONT output.
-- GC content is uniformly distributed in the expected range — no contamination signal detected.
-- Mean quality scores cluster around Q10–Q14, representative of ONT raw read quality.
+## What We Did
 
-**Recommended Next Steps:** quality filtering → reference alignment (minimap2) → variant calling (medaka/clair3).
+1. **Data Simulation:** Since no real sequencing data was available, we simulated 1,000 biologically realistic ONT reads. Read lengths were drawn from a log-normal distribution (1 kb–50 kb), GC content from a uniform distribution (40–60%), and per-base quality scores from a Normal distribution clipped to the ONT-typical Phred Q7–Q20 range.
+
+2. **QC Metrics:** Three core metrics were computed for each read:
+   - **Read Length**
+   - **GC Content (%)**
+   - **Mean Phred Quality Score**
+
+3. **Visualizations:** Histogram and KDE plots were generated for all three metrics and saved under `results/plots/`.
+
+4. **NanoPlot Report:** An interactive HTML report was produced using the standard bioinformatics QC tool NanoPlot (`results/nanoplot/NanoPlot-report.html`), summarizing N50, quality distribution, and read length statistics.
+
+---
+
+## Key Observations
+
+- **Read Length:** Distribution is right-skewed (log-normal), consistent with typical ONT output; mean ~7–8 kb, N50 in a biologically reasonable range.
+- **GC Content:** Uniform distribution observed within the expected 40–60% range — no contamination or bias detected.
+- **Quality Scores:** Mean Phred scores cluster around Q10–Q14, representative of ONT raw read quality before polishing.
+
+---
+
+## Recommended Next Steps
+
+1. **Quality Filtering:** Remove low-quality reads using `filtlong` or `chopper` (e.g., Q < 8 or length < 1,000 bp).
+2. **Reference Alignment:** Align filtered reads to a reference genome using `minimap2`.
+3. **Variant Calling:** Call SNPs/indels from alignments using `medaka` or `clair3`.
+
+The entire pipeline is containerized with Docker and can be re-run with a single command:
+
+```bash
+docker run --rm -v $(pwd):/workspace ont-qc-pipeline
+```
 
 Please let me know if you have any questions or would like to adjust the pipeline parameters.
 
 Best regards,
+
+---
+
+*Türkçe özet:*
+
+Sayın Prof. Kılıç, ONT ham verisi üzerinde QC analizini tamamladık. 1.000 simüle okuma için uzunluk, GC içeriği ve kalite skorları hesaplanıp görselleştirildi. Bir sonraki adım olarak kalite filtrelemesi ve `minimap2` ile referans hizalaması önerilmektedir.
