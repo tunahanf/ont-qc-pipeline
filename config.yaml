@@ -1,12 +1,2 @@
-simulate:
-  num_reads: 1000
-  lognormal_mu: 8.5
-  lognormal_sigma: 1.0
-  gc_min: 0.40
-  gc_max: 0.60
-  quality_min: 7
-  quality_max: 20
-  seed: 42
-
 nanoplot:
   threads: 4

@@ -12,20 +12,9 @@ rule all:
         ]),
 
 
-rule simulate_reads:
-    output:
-        "data/simulated_reads.fastq",
-    log:
-        "logs/simulate_reads.log",
-    shell:
-        """
-        python scripts/simulate_reads.py config.yaml {output} > {log} 2>&1
-        """
-
-
 rule nanoplot_qc:
     input:
-        "data/simulated_reads.fastq",
+        "barcode77.fastq",
     output:
         "results/nanoplot/NanoPlot-report.html",
     log:
@@ -47,7 +36,7 @@ rule nanoplot_qc:
 
 rule calculate_metrics:
     input:
-        "data/simulated_reads.fastq",
+        "barcode77.fastq",
     output:
         "results/metrics/read_metrics.csv",
     log:

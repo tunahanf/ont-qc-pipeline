@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Python dependencies with pinned versions
 RUN pip install --no-cache-dir \
     snakemake==7.32.4 \
+    pulp==2.7.0 \
     NanoPlot==1.42.0 \
+    kaleido==0.1.0 \
+    plotly==5.9.0 \
     pandas==2.2.2 \
     matplotlib==3.9.0 \
     seaborn==0.13.2 \

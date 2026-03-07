@@ -1,6 +1,6 @@
 data/*.fastq
-results/
+barcode77.fastq
+# results/ — committed intentionally for submission
 logs/
 __pycache__/
 .snakemake/
-CLAUDE.md
